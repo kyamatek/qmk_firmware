@@ -21,18 +21,18 @@ enum layer_number {
     _FIRST = 0,
     _FN,
     _LEDSET,
-    _THAAD,
+    _DVORAK,
 };
 
 #define FIRST  TO(_FIRST)
 #define FN  MO(_FN)
 #define LEDSET TO(_LEDSET)
-#define THAAD TO(_THAAD)
+#define DVORAK TO(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FIRST] = LAYOUT(
     // ,-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------.
-        KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,                     KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL ,KC_DEL,KC_BSPC ,
+        KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,                     KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL ,KC_DEL, KC_BSPC ,
     // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                             KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,KC_BSLS,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
         KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,FN     ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,THAAD  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
+        KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,DVORAK ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_FN] = LAYOUT(
@@ -66,20 +66,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
         _______,_______,_______,_______,_______,_______,                             _______,_______,_______,_______,_______,_______,_______,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        _______,_______,_______                ,_______,_______,FIRST  ,     THAAD  ,_______,_______        ,_______,_______
+        _______,_______,_______                ,_______,_______,FIRST  ,     DVORAK  ,_______,_______        ,_______,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
-    [_THAAD] = LAYOUT(
+    [_DVORAK] = LAYOUT(
     // ,-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------.
-        KC_ESC ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,                     KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL ,KC_BSLS,KC_GRV ,
+        KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,                     KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_LBRC,KC_RBRC,KC_DEL, KC_BSPC ,
     // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                             KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,KC_BSPC,
+        KC_TAB ,KC_QUOT,KC_COMM,KC_DOT ,KC_P   ,KC_Y   ,                             KC_F   ,KC_G   ,KC_C   ,KC_R   ,KC_L   ,KC_SLSH,KC_EQL ,KC_BSLS,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_LCTL,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                             KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
+        KC_LCTL,KC_A   ,KC_O   ,KC_E   ,KC_U   ,KC_I   ,                             KC_D   ,KC_H   ,KC_T   ,KC_N   ,KC_S   ,KC_MINS,KC_ENT ,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,FN     ,
+        KC_LSFT,KC_SCLN,KC_Q   ,KC_J   ,KC_K   ,KC_X   ,                             KC_B   ,KC_M   ,KC_W   ,KC_V   ,KC_Z   ,KC_RSFT,FN     ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_LCTL,FN     ,KC_LALT                ,KC_SPC ,KC_SPC ,LEDSET ,     FIRST  ,KC_SPC ,KC_SPC         ,KC_RALT,KC_RGUI
+        KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,LEDSET ,     FIRST  ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
 };
@@ -110,8 +110,8 @@ static void print_status_narrow(void) {
         case _LEDSET:
             oled_write_ln_P(PSTR("conf"), false);
             break;
-        case _THAAD:
-            oled_write_ln_P(PSTR("3rd"), false);
+        case _DVORAK:
+            oled_write_ln_P(PSTR("dvor"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
@@ -164,7 +164,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case _FIRST:
             case _LEDSET:
-            case _THAAD:
+            case _DVORAK:
                 tap_code(clockwise ? KC_WH_U : KC_WH_D);
                 break;
             case _FN:
@@ -178,7 +178,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case _FIRST:
             case _LEDSET:
-            case _THAAD:
+            case _DVORAK:
                 tap_code(clockwise ? KC_WH_R : KC_WH_L);
                 break;
             case _FN:
