@@ -118,6 +118,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint8_t MOUSE_SPEED = 10;
 
+void mouse_move(int8_t x, int8_t y){
+
+    report_mouse_t report = {0};
+    report.x = x;
+    report.y = y;
+    host_mouse_send(&report);
+
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(get_highest_layer(layer_state) == _MOUSE) {
@@ -233,16 +241,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case _FIRST:
             case _LEDSET:
             case _DVORAK:
-            case _MOUSE:
                 tap_code(clockwise ? KC_WH_U : KC_WH_D);
+                break;
+            case _MOUSE:
+                clockwise ? mouse_move(0, MOUSE_SPEED) : mouse_move(0, - MOUSE_SPEED); 
                 break;
             case _FN:
                 tap_code(clockwise ? KC_DOWN : KC_UP);
                 break;
             case _MFN:
-                for (int i = 0; i < MOUSE_SPEED; i++) {
-                    tap_code(clockwise ? KC_MS_U : KC_MS_D);
-                }
+                tap_code(clockwise ? KC_WH_U : KC_WH_D);
                 break;
             default:
                 break;
@@ -253,16 +261,16 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case _FIRST:
             case _LEDSET:
             case _DVORAK:
-            case _MOUSE:
                 tap_code(clockwise ? KC_WH_L : KC_WH_R);
+                break;
+            case _MOUSE:
+                clockwise ? mouse_move(MOUSE_SPEED, 0) : mouse_move(- MOUSE_SPEED, 0);  
                 break;
             case _FN:
                 tap_code(clockwise ? KC_RGHT : KC_LEFT);
                 break;
             case _MFN:
-                for (int i = 0; i < MOUSE_SPEED; i++) {
-                    tap_code(clockwise ? KC_MS_R : KC_MS_L);
-                }
+                tap_code(clockwise ? KC_WH_L : KC_WH_R);
                 break;
             default:
                 break;
