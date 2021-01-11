@@ -20,6 +20,7 @@
 enum layer_number {
     _FIRST = 0,
     _FN,
+    _FN2,
     _LEDSET,
     _DVORAK,
     _MOUSE,
@@ -30,6 +31,7 @@ enum layer_number {
 
 #define FIRST  TO(_FIRST)
 #define FN  MO(_FN)
+#define FN2  MO(_FN2)
 #define LEDSET TO(_LEDSET)
 #define DVORAK TO(_DVORAK)
 #define MOUSE TO(_MOUSE)
@@ -44,12 +46,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                             KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,FN     ,
+        KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,FN2    ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_FN] = LAYOUT(
+    // ,-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------.
+        _______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                     KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_INS ,KC_DEL ,
+    // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_CAPS,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                             KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_PSCR,KC_SLCK,KC_PAUS,
+    // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_BTN2,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
+    // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
+        KC_LSFT,_______,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                _______,MOUSE  ,KC_END ,KC_PGDN,KC_HOME,KC_MUTE,_______,
+    // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_LALT,_______,_______                ,_______,KC_LSFT,_______,     _______,KC_RSFT,_______        ,KC_DEL ,_______
+    // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
+    ),
+    [_FN2] = LAYOUT(
     // ,-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------.
         _______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                     KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_INS ,KC_DEL ,
     // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
@@ -171,6 +186,9 @@ static void print_status_narrow(void) {
         case _FN:
             oled_write_ln_P(PSTR("FN"), false);
             break;
+        case _FN2:
+            oled_write_ln_P(PSTR("FN2"), false);
+            break;
         case _LEDSET:
             oled_write_ln_P(PSTR("conf"), false);
             break;
@@ -249,6 +267,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             case _FN:
                 tap_code(clockwise ? KC_DOWN : KC_UP);
                 break;
+            case _FN2:
+                tap_code(clockwise ? KC_VOLU : KC_VOLD);
+                break; 
             case _MFN:
                 tap_code(clockwise ? KC_WH_U : KC_WH_D);
                 break;
@@ -268,6 +289,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
                 break;
             case _FN:
                 tap_code(clockwise ? KC_RGHT : KC_LEFT);
+                break;
+            case _FN2:
+                tap_code(clockwise ? KC_BRID : KC_BRIU);
                 break;
             case _MFN:
                 tap_code(clockwise ? KC_WH_L : KC_WH_R);
