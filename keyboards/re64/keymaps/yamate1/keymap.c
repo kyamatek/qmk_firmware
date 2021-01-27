@@ -31,7 +31,7 @@ enum layer_number {
 
 #define FIRST  TO(_FIRST)
 #define FN  MO(_FN)
-#define FN2  MO(_FN2)
+#define FN2  TO(_FN2)
 #define LEDSET TO(_LEDSET)
 #define DVORAK TO(_DVORAK)
 #define MOUSE TO(_MOUSE)
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                             KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,FN2    ,
+        KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RCTL,FN2    ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
@@ -57,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_CAPS,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                             KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_PSCR,KC_SLCK,KC_PAUS,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_BTN2,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
+        KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,_______,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                _______,MOUSE  ,KC_END ,KC_PGDN,KC_HOME,KC_MUTE,_______,
+        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                _______,MOUSE  ,KC_HOME,KC_END ,KC_PGDN,KC_MUTE,_______,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_LALT,_______,_______                ,_______,KC_LSFT,_______,     _______,KC_RSFT,_______        ,KC_DEL ,_______
+        KC_ESC ,_______,KC_RGUI                ,KC_SPC ,KC_LALT,_______,     _______,KC_RSFT,KC_RGUI        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_FN2] = LAYOUT(
@@ -70,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_CAPS,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                             KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_PSCR,KC_SLCK,KC_PAUS,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_BTN2,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
+        KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,_______,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                _______,MOUSE  ,KC_END ,KC_PGDN,KC_HOME,KC_MUTE,_______,
+        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                _______,MOUSE  ,KC_HOME,KC_END ,KC_PGDN,KC_MUTE,FIRST  ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_LALT,_______,_______                ,_______,KC_LSFT,_______,     _______,KC_RSFT,_______        ,KC_DEL ,_______
+        KC_ESC ,_______,_______                ,_______,KC_LALT,_______,     _______,KC_RSFT,_______        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_LEDSET] = LAYOUT(
