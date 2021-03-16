@@ -16,6 +16,7 @@
  */
 #include QMK_KEYBOARD_H
 #include <stdio.h>
+#include "rgblight_list.h"
 
 enum layer_number {
     _FIRST = 0,
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,KC_PGDN,KC_MUTE,_______,
+        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,KC_PGDN,KC_MUTE,RGB_TOG,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_ESC ,_______,KC_RGUI                ,KC_SPC ,KC_LALT,_______,     _______,KC_RSFT,KC_RGUI        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
@@ -171,6 +172,23 @@ void mouse_move(int8_t x, int8_t y){
     host_mouse_send(&report);
 
 }
+
+/*
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(layer_state)) {
+    case _FIRST:
+        rgblight_setrgb_azure();
+        rgblight_setrgb_red_at(0);
+        rgblight_setrgb_red_at(1);
+        rgblight_setrgb_red_at(2);
+        rgblight_setrgb_blue_at(3);
+        rgblight_setrgb_blue_at(4);
+        rgblight_setrgb_blue_at(5);
+        break;
+    }
+    return state;
+}
+*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(get_highest_layer(layer_state) == _MOUSE) {
