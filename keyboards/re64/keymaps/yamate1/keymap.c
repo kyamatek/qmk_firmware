@@ -338,6 +338,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         // Left rotary
         switch (get_highest_layer(layer_state)) {
             case _FIRST:
+            case _JVIM:
             case _LEDSET:
             case _TEN:
             case _TENFN:
@@ -363,6 +364,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         // Right rotary Note:Reverse Rotation
         switch (get_highest_layer(layer_state)) {
             case _FIRST:
+            case _JVIM:
             case _LEDSET:
             case _TEN:
             case _TENFN:
