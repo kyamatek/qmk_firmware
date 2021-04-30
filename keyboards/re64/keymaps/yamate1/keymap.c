@@ -20,17 +20,17 @@
 
 enum layer_number {
     _FIRST = 0,
+    _JVIM,
+    _DVORAK,
     _FN,
     _FN2,
     _LEDSET,
-    _DVORAK,
     _MOUSE,
     _MFN,
     _TEN,
     _TENFN,
     _SPUP,
     _SPDOWN,
-    _JVIM,
     _TO_ENG = SAFE_RANGE
 };
 
