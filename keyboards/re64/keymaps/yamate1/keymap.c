@@ -29,10 +29,13 @@ enum layer_number {
     _TEN,
     _TENFN,
     _SPUP,
-    _SPDOWN
+    _SPDOWN,
+    _JVIM,
+    _TO_ENG = SAFE_RANGE
 };
 
 #define FIRST  TO(_FIRST)
+#define JVIM  TO(_JVIM)
 #define FN  MO(_FN)
 #define FN2  TO(_FN2)
 #define LEDSET TO(_LEDSET)
@@ -56,6 +59,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
+    [_JVIM] = LAYOUT(
+    // ,-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------.
+        KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,                     KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL ,KC_DEL, KC_BSPC ,
+    // |-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                             KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,KC_BSLS,
+    // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
+        KC_LCTL,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                             KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
+    // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
+        KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RCTL,FIRST  ,
+    // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
+        _TO_ENG,FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
+    // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
+    ),
     [_FN] = LAYOUT(
     // ,-------+-------+-------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------+-------+-------+-------.
         _______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                     KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_INS ,KC_DEL ,
@@ -77,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                _______,MOUSE  ,KC_HOME,KC_END ,KC_PGDN,KC_MUTE,FIRST  ,
+        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,JVIM   ,KC_MUTE,FIRST  ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_ESC ,_______,_______                ,_______,KC_LALT,_______,     _______,KC_RSFT,_______        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
@@ -192,21 +208,29 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(get_highest_layer(layer_state) == _MOUSE) {
-    switch(keycode){
-            case _MOUSE:
-                case _SPUP:
-                    if (record->event.pressed) {
-                        MOUSE_SPEED = MOUSE_SPEED + 5;
-                    }
-                    return false;
-                case _SPDOWN:
-                    if (record->event.pressed) {
-                        if (MOUSE_SPEED > 0) {
-                            MOUSE_SPEED = MOUSE_SPEED - 5;
+        switch(keycode){
+                case _MOUSE:
+                    case _SPUP:
+                        if (record->event.pressed) {
+                            MOUSE_SPEED = MOUSE_SPEED + 5;
                         }
-                    }
-                    return false;
+                        return false;
+                    case _SPDOWN:
+                        if (record->event.pressed) {
+                            if (MOUSE_SPEED > 0) {
+                                MOUSE_SPEED = MOUSE_SPEED - 5;
+                            }
+                        }
+                        return false;
+        }
     }
+    switch(keycode) {
+        case _TO_ENG:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LALT(SS_LSFT("s")));
+                register_code(KC_ESC);
+                return false;
+            }
     }
     return true;
 }
@@ -254,6 +278,9 @@ static void print_status_narrow(void) {
             break;
         case _TENFN:
             oled_write_ln_P(PSTR("TNFN"), false);
+            break;
+        case _JVIM:
+            oled_write_ln_P(PSTR("JVIM"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
