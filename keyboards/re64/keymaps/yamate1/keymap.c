@@ -230,6 +230,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(SS_LALT(SS_LSFT("s")));
                 register_code(KC_ESC);
                 return false;
+            } else {
+                unregister_code(KC_ESC);
+                return false;
             }
     }
     return true;
