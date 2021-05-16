@@ -25,3 +25,4 @@ ENCODER_ENABLE = yes        # Add rotary encoder support
 OLED_DRIVER_ENABLE = yes     # Add OLED displays support
 SPLIT_KEYBOARD = yes
 EXTRAFLAGS += -flto
+UNICODE_ENABLE = yes

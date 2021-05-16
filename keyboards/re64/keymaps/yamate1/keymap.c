@@ -31,7 +31,8 @@ enum layer_number {
     _TENFN,
     _SPUP,
     _SPDOWN,
-    _TO_ENG = SAFE_RANGE
+    _TO_ENG = SAFE_RANGE,
+    _JCOMMA
 };
 
 #define FIRST  TO(_FIRST)
@@ -80,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,KC_BSLS,KC_MUTE,RGB_TOG,
+        KC_LSFT,KC_BTN2,KC_DEL ,_JCOMMA,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,KC_BSLS,KC_MUTE,RGB_TOG,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_ESC ,_______,KC_RGUI                ,KC_SPC ,KC_LALT,_______,     _______,KC_RSFT,KC_RGUI        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_BTN2,KC_DEL ,_______,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,JVIM   ,KC_MUTE,FIRST  ,
+        KC_LSFT,KC_BTN2,KC_DEL ,_JCOMMA,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,JVIM   ,KC_MUTE,FIRST  ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_ESC ,_______,_______                ,_______,KC_LALT,_______,     _______,KC_RSFT,_______        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
@@ -233,6 +234,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 unregister_code(KC_ESC);
                 return false;
+            }
+        case _JCOMMA:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LSFT("j")));
+                SEND_STRING(SS_LALT(","));
+                SEND_STRING(SS_LALT(SS_LSFT("s")));
+                //send_unicode_hex_string("FF0C");
+                break;
             }
     }
     return true;
