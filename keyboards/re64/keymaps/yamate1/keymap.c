@@ -45,6 +45,8 @@ enum layer_number {
 #define TEN TO(_TEN)
 #define TENFN MO(_TENFN)
 #define MFN MO(_MFN)
+#define S_ENT MT(MOD_RSFT, KC_ENT)   // shift or enter
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FIRST] = LAYOUT(
@@ -57,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
         KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RCTL,FN2    ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
+        KC_ESC, FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,S_ENT  ,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_JVIM] = LAYOUT(
@@ -70,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
         KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                             KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_RCTL,FIRST  ,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        _TO_ENG,FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,KC_RSFT,KC_RGUI        ,KC_BSPC,FN
+        _TO_ENG,FN     ,KC_RGUI                ,KC_SPC ,KC_LALT,MOUSE  ,     LEDSET ,S_ENT  ,KC_RGUI        ,KC_BSPC,FN
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_FN] = LAYOUT(
@@ -81,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------+-------|
         KC_LCTL,KC_BTN1,KC_MS_L,KC_MS_U,KC_MS_D,KC_MS_R,                             KC_LEFT,KC_DOWN,KC_UP  ,KC_RGHT,KC_MINS,KC_EQL ,_______,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------+-------|
-        KC_LSFT,KC_BTN2,KC_DEL ,_JCOMMA,LALT(KC_LEFT),LALT(KC_RIGHT),                TEN    ,MOUSE  ,KC_HOME,KC_END ,KC_BSLS,KC_MUTE,RGB_TOG,
+        KC_LSFT,KC_BTN2,KC_DEL ,_JCOMMA,LALT(KC_LEFT),LALT(KC_RIGHT),                KC_EQL ,KC_GRV ,KC_QUOT,TEN    ,KC_BSLS,KC_MUTE,RGB_TOG,
     // |-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------+-------+-------|
-        KC_ESC ,_______,KC_RGUI                ,KC_SPC ,KC_LALT,_______,     _______,KC_RSFT,KC_RGUI        ,KC_DEL ,_______
+        KC_ESC ,_______,KC_RGUI                ,KC_SPC ,KC_LALT,_______,     _______,S_ENT  ,KC_RGUI        ,KC_DEL ,_______
     // `-------+-------+-------+-------+-------+-------+-------+-------|    |-------+-------+-------+-------+-------+-------'
     ),
     [_FN2] = LAYOUT(
